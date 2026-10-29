@@ -1,3 +1,4 @@
+
 from ursinanetworking import UrsinaNetworkingServer
 import math
 import random
@@ -5,7 +6,7 @@ import time
 
 
 # config
-HOST = "169.254.117.137"
+HOST = "localhost"
 PORTA = 25565
 MAX_JOGADORES = 5
 TEMPO_ESPERA = 10
@@ -38,6 +39,11 @@ proximo_id_projet = 0
 pallets = {
     0:False,
     1:False
+}
+tasks = {
+    0:False,
+    1:False,
+    2:False
 }
 idcaidos = []
 positpallet = {
@@ -214,6 +220,13 @@ def resgatar(Client, Content):
             Server.broadcast("libertar", p)
             estados_jogadores[p] = ESTADO_NORMAL
             dying[p] = False
+@Server.event
+def fazertask(Client, Content):
+    jogador_id = clientes.get(Client)
+    if tasks[Content] == False and partida_iniciada:
+        Server.broadcast("podetask", True)
+    else:
+        Server.broadcast("podetask", False)
 ultimo_tempo = time.time()
 
 while True:

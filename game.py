@@ -69,6 +69,7 @@ loop2 = [
 cooldown = False
 podediretoria = False
 role = None
+tasks = [Entity(model="cube", color=color.black, scale=1.5, collider="box", position=(10,0,20)),Entity(model="cube", color=color.black, scale=1.5, collider="box", position=(30,0,29)), Entity(model="cube", color=color.black, scale=1.5, collider="box", position=(0,0,50)) ]
 clientes_remotos = {}
 partida_iniciada = False
 tempo_restante = 0
@@ -224,6 +225,9 @@ def input(key):
 
     if key == "f" and role == "estudante":
         Client.send_message("resgatar", None)
+    for task in tasks:
+        if key == "e" and role == "estudante" and distance(task, player) <= 3:
+            Client.send_message("fazertask", tasks.index(task))
 @Client.event
 def attprojetil(projeteis):
     novo_conjunto = {pro["ide"] for pro in projeteis}
@@ -251,6 +255,7 @@ def libertar(p):
         podediretoria = False
     if p in clientes_remotos:
         clientes_remotos[p].rotation_x = 0
+
 def update():
     global tempo_envio
 
