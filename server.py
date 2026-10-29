@@ -5,7 +5,7 @@ import time
 
 
 # config
-HOST = "localhost"
+HOST = "169.254.117.137"
 PORTA = 25565
 MAX_JOGADORES = 5
 TEMPO_ESPERA = 10
